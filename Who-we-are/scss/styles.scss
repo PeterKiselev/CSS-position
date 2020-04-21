@@ -1,5 +1,6 @@
 @import 'normalize';
 @import 'variables';
+@import 'socials';
 
 * {
     box-sizing: border-box;
@@ -7,10 +8,6 @@
 
 html {
     font-size: 10px;
-}
-
-html, body {
-    min-height: 100%;
 }
 
 .container {
@@ -32,7 +29,6 @@ body {
 .profile-staff {
     padding: 6.5% 0;
     background-color: $bg-section-staff-color;
-    height: 100vh;
 
     &__head {
         margin-bottom: 5%;
@@ -121,20 +117,13 @@ body {
         transition: opacity 2.5s;
     }
 
-    &__img-wrap {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-
     &__img {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        min-width: 100%;
-        min-height: 100%;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
     }
 
@@ -151,40 +140,6 @@ body {
 
     &__position {
         font-size: 1.4rem;
-    }
-    
-    &__social {
-        margin: 0;
-        padding: 0;
-    }
-
-    &__social-item {
-        display: inline-block;
-        width: 42px;
-        height: 42px;
-        line-height: 42px;
-        background: $bg-social-item;
-        text-align: center;
-        transition: all .3s ease-in;
-
-        & + & {
-            margin-left: 4px;
-        }
-
-        &:hover {
-            background-color: $secondary-color;
-        }
-    }
-
-    &__social-item:hover &__social-link {
-        color: $bg-social-item;
-    }
-
-    &__social-link {
-        color: $secondary-color;
-        font-size: 2.4rem;
-        display: inline-block;
-        width: 100%;
     }
 }
 

@@ -1,0 +1,46 @@
+$social-size: 42px;
+$social-border: 2px;
+
+.social {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    list-style: none;
+
+    &__item {
+        display: inline-block;
+        text-align: center;
+        transition: all .3s ease-in;
+    
+        & + & {
+            margin-left: 4px;
+        }
+    }
+
+    &__item:hover &__link {
+        color: $bg-social-link;
+        background-color: $secondary-color;
+    }
+
+    &__link {
+        color: $secondary-color;
+        font-size: 2.4rem;
+        display: inline-block;
+        text-decoration: none;
+        width: $social-size;
+        height: $social-size;
+        line-height: $social-size;
+        background: $bg-social-link;
+    }
+}
+
+// .social {
+    
+//     &__link {
+//         @include tr;
+//         @include hover {
+//             background-color: $light-gray;
+//             color: $secondary-color;
+//         }
+//     }
+// }
