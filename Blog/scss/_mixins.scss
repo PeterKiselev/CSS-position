@@ -25,8 +25,8 @@
     left: $left;
 }
 
-@mixin transform($delta_x: -50%, $delta_y: -50%, $scale: 1) {
-    transform: translate($delta_x, $delta_y) scale($scale);
+@mixin transform($delta_x: -50%, $delta_y: -50%) {
+    transform: translate($delta_x, $delta_y);
 }
 
 @mixin full($width: 100%, $height: 100%) {

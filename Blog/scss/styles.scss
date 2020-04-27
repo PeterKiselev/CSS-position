@@ -90,7 +90,7 @@ h2 {
     }
 
     &:hover &__img {
-        @include transform($scale: 1.2);
+        transform: translate(-50%, -50%) scale(1.2);
     }
 
     &:hover &__title {
