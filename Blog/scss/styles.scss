@@ -1,5 +1,6 @@
 @import 'normalize';
 @import 'variables';
+@import 'mixins';
 
 * {
     box-sizing: border-box;
@@ -9,17 +10,9 @@ html {
     font-size: 10px;
 }
 
-html, body {
-    min-height: 100%;
-}
-
 body {
-    background-color: $bg-color;
-    font-family: $body-ff;
-    color: $body-color;
-    font-size: 1.3rem;
-    font-weight: 300;
-    line-height: 1.5;
+    background-color: $bg-body;  
+    @include font($body-ff, 1.3rem, $body-color, 300, 1.6);
 }
 
 .container {
@@ -28,40 +21,12 @@ body {
     padding: 0 15px;
 }
 
-.blog {
-    padding: 7% 0;
-
-    &__head {
-        margin-bottom: 50px;
-    }
-
-    &__title {
-        font-size: 9rem;
-        font-weight: 700;
-        line-height: 1;
-        margin: 0 0 50px 0;
-        text-transform: capitalize;
-        text-align: center;
-    }
-
-    &__subtitle {
-        font-size: 1.7rem;
-        max-width: 570px;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    &__recipe-title {
-        font-weight: 700;
-        font-size: 2rem;
-        line-height: 1.25;
-        text-overflow: ellipsis;
-    }
-
-    &__button {
-        margin-top: 6%;
-        text-align: center;
-    }
+h2 {
+    font-size: 9rem;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: capitalize;
+    text-align: center;
 }
 
 .row {
@@ -70,20 +35,54 @@ body {
 }
 
 .col {
-    flex-basis: 31%;
+    width: 100%;
 }
 
 .col--1-4 {
+    flex-basis: 31%;
     max-width: 370px;
 }
 
+.section {
+    padding: 7% 0;
+    line-height: 1.5;
+    &--blog {
+        background-color: $blog-color;
+        
+        &__link {
+            margin-top: 6%;
+            text-align: center;
+        }
+    }
+
+    &__head {
+        margin-bottom: 50px;
+        max-width: 570px;
+        margin: 0 auto 50px;
+        text-align: center;
+
+        &--white {
+            color: $secondary-color;
+        }
+    }
+
+    &__title {
+        margin: 0 0 50px;
+    }
+
+    &__subtitle {
+        font-size: 1.7rem;
+    }
+}
+
 .recipe {
+    color: $secondary-color;
     position: relative;
     width: 100%;
     padding-top: 85%;
     overflow: hidden;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.5);
-    transition: all .3s ease-in;
+    @include tr;
 
     &:hover {
         cursor: pointer;
@@ -91,20 +90,21 @@ body {
     }
 
     &:hover &__img {
-        transform: translate(-50%, -50%) scale(1.2);
+        @include transform($scale: 1.2);
     }
 
     &:hover &__title {
-        transform: translate(0, -200%);
+        @include transform(0, -180%);
         width: 55%;  
     }
 
     &:hover &__attributes {
-        transform: translate(100%, 0);
+        @include transform(85%, 0);
+        width: 50%;
     }
 
     &:hover &__data {
-        transform: translate(400%, 0);
+        @include transform(400%, 0);
         box-shadow: inset 0 0 7px 3px rgba(255,255,255,.7);
     }
 
@@ -114,90 +114,88 @@ body {
         }
     }
 
+    @media (max-width: 1150px) {
+        &__title {
+            width: auto;
+        }
+    }
+
     &__link {
         display: inline-block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        padding: 2em 1.55em 4.5em;
+        @include posA(0, 0);
+        @include full;
+        padding: 30px 20px 20px;
         overflow: hidden;
-        transition: all .3s ease-in;
+        @include tr;
 
         &:before { 
             content: '';
-            position: absolute;
-            z-index: -1;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            @include posA(0, 0);
+            z-index: 2;
+            @include full;
             background-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,.9) 100%);
-            transition: all .3s linear;
         }
     }
 
     &:hover &__link:before {
-        z-index: -1;
+        z-index: 2;
         background-image: radial-gradient(at center, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 35%, rgba(0,0,0,9) 100%);
     }
 
     &__img {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        z-index: -2;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        @include full;
+        @include posA;
+        @include transform;
+        z-index: 1;
         object-fit: cover;
-        transition: all .3s ease-in-out;
+        @include tr;
     }
 
     &__data {
         display: inline-block;
-        max-width: 65px;
-        max-height: 65px;
+        width: 65px;
+        height: 65px;
         text-align: center;
-        padding: .2em;
+        padding: .2em .3em;
         background-color: rgba(38,38,38,0.5);
         border-radius: 5px;
-        font-weight: 700;
-        font-size: 3.2rem;
-        line-height: .8;
-        position: absolute;
-        top: 6%;
-        left: 6%;
+        @include font($fz: 3.2rem, $fw: 700, $lh: .8);
+        @include posA(11%, 5.5%);
+        z-index: 3;
         overflow: hidden;
-        transition: all .3s ease-in;
+        @include tr;
     }
 
     &__month {
+        display: inline-block;
         font-size: 2.1rem;
         text-transform: uppercase;
+        overflow: hidden;
+        line-height: 1;
+        width: 100%;
     }
 
     &__title {
-        position: absolute;
-        left: 6%;
+        @include posA(auto, 6%);
+        z-index: 3;
         bottom: 12%;
         right: 6%;
-        font-weight: 700;
-        font-size: 2rem;
-        line-height: 1.25;
+        @include font($fz: 2rem, $fw: 700, $lh: 1.25);
         max-height: 150px;
         overflow: hidden;
-        transition: all .3s ease-in-out;
+        @include tr;
     }
 
     &__attributes {
-        position: absolute;
+        @include posA(auto, 6%);
+        z-index: 3;
         bottom: 6%;
-        left: 6%;
+        right: 6%;
         font-style: normal;
         overflow: hidden;
-        transition: all .3s ease-in-out;
+        max-height: 40px;
+        width: 100%;
+        @include tr;
     }
 
     &__author:not(:empty) + &__time:not(:empty):before {
@@ -207,25 +205,20 @@ body {
 
 .btn {
     display: inline-block;
-    font-size: 2rem;
-    line-height: 1.25;
+    @include font($fz: 2rem, $lh: 1.25);
     text-transform: uppercase;
     padding: 1em 2em;
     text-align: center;
-    background-color: $primary-color;
+    background-color: $primary-color-blog;
     text-decoration: none;
-    color: inherit;
+    color: $secondary-color;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
-    transition: all .3s ease-in;
+    @include tr;
 
-    &:hover {
-        background-color: #fff;
-        color: $primary-color;
+    @include hover {
+        background-color: $secondary-color;
+        color: $primary-color-blog;
         font-weight: 700;
-        box-shadow: 0px 0px 10px 2px $primary-color;
+        box-shadow: 0px 0px 10px 2px $primary-color-blog;
     }
 }
-  
-
-  
-  
